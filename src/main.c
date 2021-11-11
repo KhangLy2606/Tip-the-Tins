@@ -8,7 +8,7 @@
 // To run a particular example, you should remove the comment (//) in
 // front of exactly ONE of the following lines:
 
-#define BUTTON_BLINK
+// #define BUTTON_BLINK
 // #define LIGHT_SCHEDULER
 // #define TIME_RAND
 // #define KEYPAD
@@ -19,6 +19,16 @@
 // #define ROTARY_ENCODER
 // #define ANALOG
 // #define PWM
+
+//Tip the Tins Helper Functions 
+// #define RAND_QUEST  
+// #define DISTANCE_1  
+// #define DISTANCE_2  
+// #define DISTANCE_3  
+// #define DISTANCE_4  
+// #define ANSWER      
+// #define CHECKPIN    
+// #define LED        
 
 #include <stdbool.h> // booleans, i.e. true and false
 #include <stdio.h>   // sprintf() function
@@ -51,6 +61,43 @@ int main(void)
 
     // as mentioned above, only one of the following code sections will be used
     // (depending on which of the #define statements at the top of this file has been uncommented)
+
+#ifdef RAND_QUEST
+// Generates a random question with correct answer 
+#endif 
+
+#ifdef DISTANCE_1
+// Gets distance from ultrasonic sensor 1 and checks if answer was selected by comparing value to a previously determined value
+// Returns true if distance recieved is equal to previously determined vlaue, returns false otherwise (indicating the player's answer)
+#endif
+
+#ifdef DISTANCE_2
+// Gets distance from ultrasonic sensor 2 and checks if answer was selected by comparing value to a previously determined value
+// Returns true if distance recieved is equal to previously determined vlaue, returns false otherwise (indicating the player's answer)
+#endif
+
+#ifdef DISTANCE_3
+// Gets distance from ultrasonic sensor 3 and checks if answer was selected by comparing value to a previously determined value
+// Returns true if distance recieved is equal to previously determined vlaue, returns false otherwise (indicating the player's answer)
+#endif 
+
+#ifdef DISTANCE_4
+// Gets distance from ultrasonic sensor 1 and checks if answer was selected by comparing value to a previously determined value
+// Returns true if distance recieved is equal to previously determined vlaue, returns false otherwise (indicating the player's answer)
+#endif
+
+#ifdef ANSWER
+// Inputs the player's answer value into array (ex. if player selects answer 2 for question one, array[0] = 1)
+#endif
+
+#ifdef CHECK_PIN
+// Checks if player's array = correct array. (their answers were all right) 
+#endif
+
+#ifdef LED
+// If CHECKPIN is true, pin will be displayed and LED will turn green. If CHECKPIN is false, a life will be lost and LED will turn red
+#endif
+
 
 #ifdef BUTTON_BLINK
     // Wait for the user to push the blue button, then blink the LED.
