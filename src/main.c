@@ -27,14 +27,20 @@
 // #define DISTANCE_3  
 // #define DISTANCE_4  
 // #define ANSWER      
-// #define CHECKPIN    
-// #define LED        
+#define CHECK_PIN    
+#define LED        
 
 #include <stdbool.h> // booleans, i.e. true and false
 #include <stdio.h>   // sprintf() function
 #include <stdlib.h>  // srand() and random() functions
 
 #include "ece198.h"
+
+bool answer;
+
+//the following code is just to test the LED and CHECK_PIN, if you change the values the corresponding light will turn on!
+int player_array[4] = {1,3,2,4};
+int correct_array[4] = {1,3,1,4};
 
 int main(void)
 {
@@ -92,10 +98,34 @@ int main(void)
 
 #ifdef CHECK_PIN
 // Checks if player's array = correct array. (their answers were all right) 
+
+//false until player answers all questions
+answer = false;
+int correct_count = 0;
+
+//compare every entry of player's array to answer array
+int i;
+for(int i = 0; i < 4; ++i){
+    if(player_array[i] == correct_array[i]){
+        correct_count++;
+    }
+
+    if (correct_count == 4){
+        answer = true;
+    }
+}
 #endif
+
 
 #ifdef LED
 // If CHECKPIN is true, pin will be displayed and LED will turn green. If CHECKPIN is false, a life will be lost and LED will turn red
+InitializePin(GPIOA, GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);  // initialize color LED output pins
+    int colour = 0;
+    if(answer == true) {
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, colour = 2);  // green (hex 2 == 0010 binary)
+        }else {
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, colour = 4);  // red   (hex 4 == 0100 binary)
+        }
 #endif
 
 
@@ -311,7 +341,8 @@ int main(void)
         }
     }
 #endif
-    return 0;
+
+return 0;
 }
 
 // This function is called by the HAL once every millisecond
@@ -320,3 +351,7 @@ void SysTick_Handler(void)
     HAL_IncTick(); // tell HAL that a new tick has happened
     // we can do other things in here too if we need to, but be careful
 }
+
+
+
+
