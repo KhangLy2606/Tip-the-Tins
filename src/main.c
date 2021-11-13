@@ -40,7 +40,7 @@ bool answer;
 
 //the following code is just to test the LED and CHECK_PIN, if you change the values the corresponding light will turn on!
 int player_array[4] = {1,3,2,4};
-int correct_array[4] = {1,3,1,4};
+int correct_array[4] = {1,3,2,4};
 
 int main(void)
 {
@@ -67,13 +67,26 @@ int main(void)
 
     // as mentioned above, only one of the following code sections will be used
     // (depending on which of the #define statements at the top of this file has been uncommented)
-
+/*
+Program Description: 
+- When the game starts, RAND_QUEST runs to generate a random question which will be output into a LCD display: 
+Questions generated are multiple choices with A, B, C, D as answers which correspond to the PIN numbers 1, 2, 3, 4. 
+- The program will then repeatedly check the DISTANCE_1, DISTANCE_2, DISTANCE_3, DISTANCE_4.
+- These four functions will read the distance received from the sensors and return a boolean variable indicating whether there has been a change in distance. 
+Change in distance means the tin can is knocked down which determines the player's answer to the question. 
+- When a sensor returns a false variable, function ANSWER will store the answer into an array of type int. 
+- The Program repeated 3 more times until 4 questions have been answered. At this point, the player will have an array of answers
+that will be run by CHECK_PIN. 
+- CHECK_PIN stores an array that corresponds to the correct answers to the 4 questions. 
+CHECK_PIN returns a boolean variable upon checking if the player's array of answers is equal to the correct array. 
+- If CHECK_PIN is true, the pin will be displayed and LED will turn green. If CHECK_PIN is false, a life will be lost and LED will turn red
+*/
 #ifdef RAND_QUEST
 // Generates a random question with correct answer 
 #endif 
 
 #ifdef DISTANCE_1
-// Gets distance from ultrasonic sensor 1 and checks if answer was selected by comparing value to a previously determined value
+// Gets distance from ultraasonic sensor 1 and checks if answer was selected by comparing value to a previously determined value
 // Returns true if distance recieved is equal to previously determined vlaue, returns false otherwise (indicating the player's answer)
 #endif
 
