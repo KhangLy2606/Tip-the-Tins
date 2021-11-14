@@ -60,7 +60,7 @@ int main(void)
 #ifdef RAND_QUEST
 // Generates a random question with correct answer 
 int rand_num = 0;
-srand(time(0));
+srand(HAL_GetTick());
 printf("The randomly generated number is ");
 
 rand_num = rand()%30;
