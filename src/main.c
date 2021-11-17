@@ -36,6 +36,8 @@
 
 #include "ece198.h"
 
+#include "LiquidCrystal.h"
+
 bool answer;
 size_t count;
 
@@ -609,6 +611,56 @@ void SysTick_Handler(void)
     // we can do other things in here too if we need to, but be careful
 }
 
+
+
+
+//definitions to move to top 
+uint32_t Ticks;
+const float speed_of_sound = 0.0343/2;
+float distance;
+char buff[100];
+#define usTim TIM4;
+#include <string.h>
+
+void get_distance(void){
+    while (1){
+    
+    //set trigger pin high for 10 uS and then set it low
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
+    HAL_Delay(10);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
+
+    //wait for rising edge of echo pin
+    while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_1) == GPIO_PIN_RESET);
+    
+
+    //measure ECHO pulse width in Us
+    Ticks = 0;
+    while(GPIO_PIN_1 == GPIO_PIN_SET){
+        Ticks++;
+        HAL_Delay(2);
+    }
+
+    //calculate distance in cm
+    distance = (Ticks + 0.0f)*2.8*speed_of_sound;
+
+    //print distance 
+    sprintf(buff, "distance (cm) =  %.2f", distance);
+
+    HAL_Delay(1000);
+
+    
+    }
+}
+
+void LCD_print(void){
+    //initialize the display ports and pins 
+    LiquidCrystal(GPIOB, GPIO_PIN_8, GPIO_PIN_9, GPIO_PIN_10, GPIO_PIN_3, GPIO_PIN_4, GPIO_PIN_5, GPIO_PIN_6);
+
+    //display message on first row of display 
+    setCursor(0,0);
+    sprintf(buff, "distance (cm) =  %.2f", distance);
+}
 
 
 
