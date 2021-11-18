@@ -27,8 +27,6 @@
 // #define DISTANCE_3  
 // #define DISTANCE_4  
 // #define ANSWER      
-#define CHECK_PIN    
-#define LED        
 
 #include <stdbool.h> // booleans, i.e. true and false
 #include <stdio.h>   // sprintf() function
@@ -38,8 +36,23 @@
 
 #include "LiquidCrystal.h"
 
+// float get_distance();
+void CHECK_PIN();
+void LED();
+
 bool answer;
 size_t count;
+
+char buff[100];
+
+//definitions to move to top 
+int Ticks;
+const float speed_of_sound = 0.0343/2;
+int distance = 6;
+char buff[100];
+#include <string.h>
+
+
 
 //the following code is just to test the LED and CHECK_PIN, if you change the values the corresponding light will turn on!
 int player_array[4];
@@ -47,6 +60,7 @@ int correct_array[4];
 
 int main(void)
 {
+   
     HAL_Init(); // initialize the Hardware Abstraction Layer
 
     // Peripherals (including GPIOs) are disabled by default to save power, so we
@@ -68,6 +82,18 @@ int main(void)
 
     SerialSetup(9600);
 
+    InitializePin(GPIOC, GPIO_PIN_0, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);
+    InitializePin(GPIOC, GPIO_PIN_1, GPIO_MODE_INPUT, GPIO_NOPULL, 0);
+    
+   
+    while(1){
+        sprintf(buff, "distance (cm) =  %d\n", get_distance());
+        SerialPuts(buff);
+
+        HAL_Delay(1000);
+    }
+   
+   
     // as mentioned above, only one of the following code sections will be used
     // (depending on which of the #define statements at the top of this file has been uncommented)
 /*
@@ -355,37 +381,9 @@ printf("D:June 32\n ");
 // Inputs the player's answer value into array (ex. if player selects answer 2 for question one, array[0] = 1)
 #endif
 
-#ifdef CHECK_PIN
-// Checks if player's array = correct array. (their answers were all right) 
-
-//false until player answers all questions
-answer = false;
-int correct_count = 0;
-
-//compare every entry of player's array to answer array
-int i;
-for(int i = 0; i < 4; ++i){
-    if(player_array[i] == correct_array[i]){
-        correct_count++;
-    }
-
-    if (correct_count == 4){
-        answer = true;
-    }
-}
-#endif
 
 
-#ifdef LED
-// If CHECKPIN is true, pin will be displayed and LED will turn green. If CHECKPIN is false, a life will be lost and LED will turn red
-InitializePin(GPIOA, GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);  // initialize color LED output pins
-    int colour = 0;
-    if(answer == true) {
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, colour = 2);  // green (hex 2 == 0010 binary)
-        }else {
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, colour = 4);  // red   (hex 4 == 0100 binary)
-        }
-#endif
+
 
 
 #ifdef BUTTON_BLINK
@@ -611,20 +609,42 @@ void SysTick_Handler(void)
     // we can do other things in here too if we need to, but be careful
 }
 
+void LED (void){
+    // If CHECKPIN is true, pin will be displayed and LED will turn green. If CHECKPIN is false, a life will be lost and LED will turn red
+InitializePin(GPIOA, GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);  // initialize color LED output pins
+    int colour = 0;
+    if(answer == true) {
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, colour = 2);  // green (hex 2 == 0010 binary)
+        }else {
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, colour = 4);  // red   (hex 4 == 0100 binary)
+        }
+}
+
+void CHECK_PIN (void) {
+// Checks if player's array = correct array. (their answers were all right) 
+
+//false until player answers all questions
+answer = false;
+int correct_count = 0;
+
+//compare every entry of player's array to answer array
+int i;
+for(int i = 0; i < 4; ++i){
+    if(player_array[i] == correct_array[i]){
+        correct_count++;
+    }
+
+    if (correct_count == 4){
+        answer = true;
+    }
+}
+}
 
 
+int get_distance(void){
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
+    HAL_Delay(3);
 
-//definitions to move to top 
-uint32_t Ticks;
-const float speed_of_sound = 0.0343/2;
-float distance;
-char buff[100];
-#define usTim TIM4;
-#include <string.h>
-
-void get_distance(void){
-    while (1){
-    
     //set trigger pin high for 10 uS and then set it low
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
     HAL_Delay(10);
@@ -636,31 +656,25 @@ void get_distance(void){
 
     //measure ECHO pulse width in Us
     Ticks = 0;
-    while(GPIO_PIN_1 == GPIO_PIN_SET){
+    while(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_1) == GPIO_PIN_SET){
         Ticks++;
         HAL_Delay(2);
-    }
+    };
 
     //calculate distance in cm
-    distance = (Ticks + 0.0f)*2.8*speed_of_sound;
-
-    //print distance 
-    sprintf(buff, "distance (cm) =  %.2f", distance);
-
-    HAL_Delay(1000);
-
+    distance = 1000*(Ticks)*2.8*speed_of_sound;
     
-    }
-}
+     return distance;
+ }
 
-void LCD_print(void){
-    //initialize the display ports and pins 
-    LiquidCrystal(GPIOB, GPIO_PIN_8, GPIO_PIN_9, GPIO_PIN_10, GPIO_PIN_3, GPIO_PIN_4, GPIO_PIN_5, GPIO_PIN_6);
+// void LCD_print(void){
+//     //initialize the display ports and pins 
+//     LiquidCrystal(GPIOB, GPIO_PIN_8, GPIO_PIN_9, GPIO_PIN_10, GPIO_PIN_3, GPIO_PIN_4, GPIO_PIN_5, GPIO_PIN_6);
 
-    //display message on first row of display 
-    setCursor(0,0);
-    sprintf(buff, "distance (cm) =  %.2f", distance);
-}
+//     //display message on first row of display 
+//     setCursor(0,0);
+//     sprintf(buff, "distance (cm) =  %.2f", distance);
+// }
 
 
 
