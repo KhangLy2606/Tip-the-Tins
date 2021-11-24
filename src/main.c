@@ -74,7 +74,6 @@ int main(void)
     CHECK_PIN();
     LED();
 
- 
 return 0;
 }
 
@@ -88,272 +87,272 @@ rand_num = rand()%30; // selects a random number using the function from the HAL
 switch (rand_num) // matches rand_num with question 
 {
 case 1 : 
-LCD_print("Question: How many championship title has the raptor won ?\n ");
-LCD_print("A:3\n ");
-LCD_print("B:1\n ");
-LCD_print("C:2\n ");
-LCD_print("D:0\n ");
+LCD_print("How many championship title has the raptor won ?");
+LCD_print("A:3");
+LCD_print("B:1");
+LCD_print("C:2");
+LCD_print("D:0");
 correct_array[count] = 2;
 break;
 
 case 2 : 
-LCD_print("Question: The American Falls and Horseshoe Falls are better known as?\n ");
-LCD_print("A: Rainbow falls\n ");
-LCD_print("B: Niagara falls\n ");
-LCD_print("C: Union falls\n ");
-LCD_print("D: Yosemite falls\n ");
+LCD_print(" The American Falls and Horseshoe Falls are better known as?");
+LCD_print("A: Rainbow falls");
+LCD_print("B: Niagara falls");
+LCD_print("C: Union falls");
+LCD_print("D: Yosemite falls");
 correct_array[count] = 2;
 break;
 
 case 3 : 
-LCD_print("Question: Whose nickname was the Wizard of Menlo Park?\n ");
-LCD_print("A:Voldemort\n ");
-LCD_print("B:Albus Dumbledore\n ");
-LCD_print("C:Gandalf\n ");
-LCD_print("D:Thomas Edison\n ");
+LCD_print("Whose nickname was the Wizard of Menlo Park?");
+LCD_print("A:Voldemort");
+LCD_print("B:Albus Dumbledore");
+LCD_print("C:Gandalf");
+LCD_print("D:Thomas Edison");
 correct_array[count] = 4;
 break;
 
 case 4 : 
-LCD_print("Question: What animals are pearls found in?\n ");
-LCD_print("A:Seals\n ");
-LCD_print("B:Whales\n ");
-LCD_print("C:Oysters\n ");
-LCD_print("D:Corals\n ");
+LCD_print("What animals are pearls found in?");
+LCD_print("A:Seals");
+LCD_print("B:Whales");
+LCD_print("C:Oysters");
+LCD_print("D:Corals");
 correct_array[count] = 3;
 break;
 
 case 5 : 
-LCD_print("Question: Which cartoon character lives in a pineapple under the sea?\n ");
-LCD_print("A:Spongebob Squarepants\n ");
-LCD_print("B:Rick\n ");
-LCD_print("C:Phineas\n ");
-LCD_print("D:Elsa\n ");
+LCD_print("Which cartoon character lives in a pineapple under the sea?");
+LCD_print("A:Spongebob Squarepants");
+LCD_print("B:Rick");
+LCD_print("C:Phineas");
+LCD_print("D:Elsa");
 correct_array[count] = 1;
 break;
 
 case 6 : 
-LCD_print("Question: How many soccer players should each team have on the field at the start of each match?\n ");
-LCD_print("A:9\n ");
-LCD_print("B:10\n ");
-LCD_print("C:21\n ");
-LCD_print("D:11\n ");
+LCD_print("How many soccer players should each team have on the field at the start of each match?");
+LCD_print("A:9");
+LCD_print("B:10");
+LCD_print("C:21");
+LCD_print("D:11");
 correct_array[count] = 4;
 break;
 
 case 7 : 
-LCD_print("Question: Which boxer was known as The Greatest and The People Champion\n ");
-LCD_print("A:Tyson Fury\n ");
-LCD_print("B:Donal Trump\n ");
-LCD_print("C:Muhammad Ali\n ");
-LCD_print("D:Conor McGregor\n ");
+LCD_print("Which boxer was known as The Greatest and The People Champion");
+LCD_print("A:Tyson Fury");
+LCD_print("B:Donal Trump");
+LCD_print("C:Muhammad Ali");
+LCD_print("D:Conor McGregor");
 correct_array[count] = 3;
 break;
 
 case 8 : 
-LCD_print("Question: What is the highest-grossing film of all time ?\n ");
-LCD_print("A:Avenger: End game\n ");
-LCD_print("B:Sherk\n ");
-LCD_print("C:Sherk 2\n ");
-LCD_print("D:Avatar\n ");
+LCD_print("What is the highest-grossing film of all time ?");
+LCD_print("A:Avenger: End game");
+LCD_print("B:Sherk");
+LCD_print("C:Sherk 2");
+LCD_print("D:Avatar");
 correct_array[count] = 4;
 break;
 
 case 9 : 
-LCD_print("Question: Which country is responsible for giving us pizza and pasta?\n ");
-LCD_print("A: Italy\n ");
-LCD_print("B: Russia\n ");
-LCD_print("C: Antartica\n ");
-LCD_print("D: North Korea \n ");
+LCD_print("Which country is responsible for giving us pizza and pasta?");
+LCD_print("A: Italy");
+LCD_print("B: Russia");
+LCD_print("C: Antartica");
+LCD_print("D: North Korea ");
 correct_array[count] = 1;
 break;
 
 case 10 : 
-LCD_print("Question: What is your body largest organ?\n ");
-LCD_print("A: Heart\n ");
-LCD_print("B: Intestines\n ");
-LCD_print("C: Skin\n ");
-LCD_print("D: Organ\n ");
+LCD_print("What is your body largest organ?");
+LCD_print("A: Heart");
+LCD_print("B: Intestines");
+LCD_print("C: Skin");
+LCD_print("D: Organ");
 correct_array[count] = 3; 
 break;
 
 case 11 : 
-LCD_print("Question: What percentage of a adult body is made up of water?\n ");
-LCD_print("A:69%% \n ");
-LCD_print("B:50-65%%\n ");
-LCD_print("C:70-80%%\n ");
-LCD_print("D:0%%\n ");
+LCD_print("What percentage of a adult body is made up of water?");
+LCD_print("A:69%% ");
+LCD_print("B:50-65%%");
+LCD_print("C:70-80%%");
+LCD_print("D:0%%");
 correct_array[count] = 2;
 break;
 
 case 12 : 
-LCD_print("Question: What is the smallest country in the world?\n ");
-LCD_print("A: Vatican City\n ");
-LCD_print("B: Cuba\n ");
-LCD_print("C: Russia\n ");
-LCD_print("D: Monaco\n ");
+LCD_print("What is the smallest country in the world?");
+LCD_print("A: Vatican City");
+LCD_print("B: Cuba");
+LCD_print("C: Russia");
+LCD_print("D: Monaco");
 correct_array[count] = 1;
 break;
 
 case 13 : 
-LCD_print("Question: Which two countries share the longest international border?\n ");
-LCD_print("A: Russia and China\n ");
-LCD_print("B: Canada and the US\n ");
-LCD_print("C: The US and Mexico\n ");
-LCD_print("D: Britain and France\n ");
+LCD_print("Which two countries share the longest international border?");
+LCD_print("A: Russia and China");
+LCD_print("B: Canada and the US");
+LCD_print("C: The US and Mexico");
+LCD_print("D: Britain and France");
 correct_array[count] = 2;
 break;
 
 case 14 : 
-LCD_print("Question: Which continent is the largest? ?\n ");
-LCD_print("A: North America\n ");
-LCD_print("B: South America\n ");
-LCD_print("C: Asia\n ");
-LCD_print("D: Antartica\n ");
+LCD_print("Which continent is the largest? ?");
+LCD_print("A: North America");
+LCD_print("B: South America");
+LCD_print("C: Asia");
+LCD_print("D: Antartica");
 correct_array[count] = 3; 
 break; 
 
 case 15 : 
-LCD_print("Question: How many championship title has the raptor won ?\n ");
-LCD_print("A: 3\n ");
-LCD_print("B: 1\n ");
-LCD_print("C: 2\n ");
-LCD_print("D: 0\n ");
+LCD_print("How many championship title has the raptor won ?");
+LCD_print("A: 3");
+LCD_print("B: 1");
+LCD_print("C: 2");
+LCD_print("D: 0");
 correct_array[count] = 2;
 break;
 
 case 16 : 
-LCD_print("Question: What is the name of the longest river in the world?\n ");
-LCD_print("A:The Nile river\n ");
-LCD_print("B:The Amazon River\n ");
-LCD_print("C:Mississippi river\n ");
-LCD_print("D:Mekong river\n ");
+LCD_print("What is the name of the longest river in the world?");
+LCD_print("A:The Nile river");
+LCD_print("B:The Amazon River");
+LCD_print("C:Mississippi river");
+LCD_print("D:Mekong river");
 correct_array[count] = 1;
 break;
 
 case 17 : 
-LCD_print("Question: Which religion dominated the Middle Ages?\n ");
-LCD_print("A:Catholism\n ");
-LCD_print("B:Hinduism\n ");
-LCD_print("C:Islam\n ");
-LCD_print("D:Buddhism\n ");
+LCD_print("Which religion dominated the Middle Ages?");
+LCD_print("A:Catholism");
+LCD_print("B:Hinduism");
+LCD_print("C:Islam");
+LCD_print("D:Buddhism");
 correct_array[count] = 1;
 break;
 
 case 18 : 
-LCD_print("Question: In which country was Adolph Hitler born in?\n ");
-LCD_print("A:Germany\n ");
-LCD_print("B:Austria\n ");
-LCD_print("C:Netherland\n ");
-LCD_print("D:Poland\n ");
+LCD_print("In which country was Adolph Hitler born in?");
+LCD_print("A:Germany");
+LCD_print("B:Austria");
+LCD_print("C:Netherland");
+LCD_print("D:Poland");
 correct_array[count] = 2;
 break;
 
 case 19 : 
-LCD_print("Question: What is the name of the fourth book in the Harry Potter series?\n ");
-LCD_print("A: Harry Potter and the Goblet of Fire\n ");
-LCD_print("B: Harry Potter and the Sorcerer’s Stone\n ");
-LCD_print("C: Harry Potter and the Deathly Hallows\n ");
-LCD_print("D: Harry Potter and the Order of the Phoenix\n ");
+LCD_print("What is the name of the fourth book in the Harry Potter series?");
+LCD_print("A: Harry Potter and the Goblet of Fire");
+LCD_print("B: Harry Potter and the Sorcerer’s Stone");
+LCD_print("C: Harry Potter and the Deathly Hallows");
+LCD_print("D: Harry Potter and the Order of the Phoenix");
 correct_array[count] = 1;
 break;
 
 case 20 : 
-LCD_print("Question: Who is the writer of Merchant of Venice?\n ");
-LCD_print("A: William Shakespeare\n ");
-LCD_print("B: J.K Rowling\n ");
-LCD_print("C: J.R.R Tolkien\n ");
-LCD_print("D: Charles Darwin\n ");
+LCD_print("Who is the writer of Merchant of Venice?");
+LCD_print("A: William Shakespeare");
+LCD_print("B: J.K Rowling");
+LCD_print("C: J.R.R Tolkien");
+LCD_print("D: Charles Darwin");
 correct_array[count] = 1;
 break;
 
 case 21 : 
-LCD_print("Question: What animal is on the lamborghini logo?\n ");
-LCD_print("A: Bull\n ");
-LCD_print("B: Horse\n ");
-LCD_print("C: Eagle\n ");
-LCD_print("D: Fish\n ");
+LCD_print("What animal is on the lamborghini logo?");
+LCD_print("A: Bull");
+LCD_print("B: Horse");
+LCD_print("C: Eagle");
+LCD_print("D: Fish");
 correct_array[count] = 1;
 break;
 
 case 22 : 
-LCD_print("Question: Donald Trump and which North Korean leader are known to trade threats over the internet?\n ");
-LCD_print("A: Kim Jong-Il\n ");
-LCD_print("B: Kim Jong Un\n ");
-LCD_print("C: Mao Zedong\n ");
-LCD_print("D: Xi Jinping\n ");
+LCD_print("Donald Trump and which North Korean leader are known to trade threats over the internet?");
+LCD_print("A: Kim Jong-Il");
+LCD_print("B: Kim Jong Un");
+LCD_print("C: Mao Zedong");
+LCD_print("D: Xi Jinping");
 correct_array[count] = 2;
 break;
 
 case 23 : 
-LCD_print("Question:What is the fastest land animal in the world?\n ");
-LCD_print("A: Wolf\n ");
-LCD_print("B: Hyena\n ");
-LCD_print("C: Lion\n ");
-LCD_print("D: Cheetah\n ");
+LCD_print("Question:What is the fastest land animal in the world?");
+LCD_print("A: Wolf");
+LCD_print("B: Hyena");
+LCD_print("C: Lion");
+LCD_print("D: Cheetah");
 correct_array[count] = 4;
 break;
 
 case 24 : 
-LCD_print("Question: Who is the richest person in the world right now?\n ");
-LCD_print("A: Jeff bezos\n ");
-LCD_print("B: Elon Musk\n ");
-LCD_print("C: Bill Gates\n ");
-LCD_print("D: You :>\n ");
+LCD_print("Who is the richest person in the world right now?");
+LCD_print("A: Jeff bezos");
+LCD_print("B: Elon Musk");
+LCD_print("C: Bill Gates");
+LCD_print("D: You :>");
 correct_array[count] = 2;
 break;
 
 case 26 : 
-LCD_print("Question: Which watch company has a pointed crown as its logo?\n ");
-LCD_print("A: Cartier\n ");
-LCD_print("B: Gucci\n ");
-LCD_print("C: Rolex\n ");
-LCD_print("D: Omega\n ");
+LCD_print("Which watch company has a pointed crown as its logo?");
+LCD_print("A: Cartier");
+LCD_print("B: Gucci");
+LCD_print("C: Rolex");
+LCD_print("D: Omega");
 correct_array[count] = 3;
 break;
 
 case 27 : 
-LCD_print("Question: What is the slogan of Apple Inc.?\n ");
-LCD_print("A: Think different\n ");
-LCD_print("B: Think same\n ");
-LCD_print("C: Just do it\n ");
-LCD_print("D: Impossible is nothing\n ");
+LCD_print("What is the slogan of Apple Inc.?");
+LCD_print("A: Think different");
+LCD_print("B: Think same");
+LCD_print("C: Just do it");
+LCD_print("D: Impossible is nothing");
 correct_array[count] = 1;
 break;
 
 case 28 : 
-LCD_print("Question: Oktoberfest in Germany is celebrated with what drink?\n ");
-LCD_print("A:Vodka\n ");
-LCD_print("B:Cider\n ");
-LCD_print("C:Beer\n ");
-LCD_print("D:Rum\n ");
+LCD_print("Oktoberfest in Germany is celebrated with what drink?");
+LCD_print("A:Vodka");
+LCD_print("B:Cider");
+LCD_print("C:Beer");
+LCD_print("D:Rum");
 correct_array[count] = 3;
 break;
 
 case 29 : 
-LCD_print("Question: When is Canada Day?\n ");
-LCD_print("A:July 28\n ");
-LCD_print("B:December 26\n ");
-LCD_print("C:July 1\n ");
-LCD_print("D:June 32\n ");
+LCD_print("When is Canada Day?");
+LCD_print("A:July 28");
+LCD_print("B:December 26");
+LCD_print("C:July 1");
+LCD_print("D:June 32");
 correct_array[count] = 3;
 break;
 
 case 30 : 
-LCD_print("How many buildings does the University of Waterloo have\n ");
-LCD_print("A:75\n ");
-LCD_print("B:50\n ");
-LCD_print("C:100+\n ");
-LCD_print("D:28\n ");
+LCD_print("How many buildings does the University of Waterloo have");
+LCD_print("A:75");
+LCD_print("B:50");
+LCD_print("C:100+");
+LCD_print("D:28");
 correct_array[count] = 3;
 break;
 
 default: 
-LCD_print("Question: Who was the first person to be pictured on a coin?\n ");
-LCD_print("A: Benjamin Franklin\n ");
-LCD_print("B: Genghis Khan\n ");
-LCD_print("C: Alexander the Great\n ");
-LCD_print("D: Cleopatra\n ");
+LCD_print("Who was the first person to be pictured on a coin?");
+LCD_print("A: Benjamin Franklin");
+LCD_print("B: Genghis Khan");
+LCD_print("C: Alexander the Great");
+LCD_print("D: Cleopatra");
 correct_array[count] = 3;
 break;
     } 
@@ -432,7 +431,7 @@ void LCD_print(char buff[]){
 	LiquidCrystal(GPIOA, GPIO_PIN_8, GPIO_PIN_9, GPIO_PIN_10, GPIO_PIN_11, GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14);
 
 	print(buff);
-	HAL_Delay(1000);
+	HAL_Delay(10000);
 
 }
 
