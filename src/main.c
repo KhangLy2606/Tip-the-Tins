@@ -31,7 +31,7 @@ int get_distance4();
 int check_answer();
 void LCD_print(char buff[]);
 
-bool answer;
+bool answer = false;
 size_t count;
 char buff[100];
 int Ticks;
@@ -43,7 +43,7 @@ int player_array[4];
 char player_answer[4];
 int turn = 1;
 int lives = 3;
-
+bool answered;
 char question;
 
 
@@ -106,19 +106,18 @@ int main(void)
    
     // Game code
     // Asks 4 questions and inputs answers based on sensors
-    
 
-    // Checks if player got all 4 questions correctly and turns LED on accordingly and prints lives 
-    CHECK_PIN();
-    LED();
-
-    while((answer = false) && (lives > 0)){
+    while((answer == false) && (lives > 0)){
         while(turn <= 4){
         // Gets random question 
+        answered = false;
         RAND_QUEST();
         count++;
+        while (answered == false) {
         check_answer();
+        }
         ++turn;
+        HAL_Delay(200);
     }
         // Checks if player got all 4 questions correctly and turns LED on accordingly and prints lives 
         CHECK_PIN();
@@ -134,9 +133,9 @@ return 0;
 void RAND_QUEST ()  {
 // Generates a random question with correct answer 
 
-int rand_num = 0; // keeps track of random number
-srand(HAL_GetTick());
-rand_num = rand()%30; // selects a random number using the function from the HAL library
+// keeps track of random number
+srand(99866);
+int rand_num  = random()%30; // selects a random number using the function from the HAL library
 
 switch (rand_num) // matches rand_num with question 
 {
@@ -150,7 +149,7 @@ correct_array[count] = 2;
 break;
 
 case 2 : 
-LCD_print("5*7");
+LCD_print("5*7=");
 LCD_print("A: 75");
 LCD_print("B: 35");
 LCD_print("C: 30");
@@ -159,7 +158,7 @@ correct_array[count] = 2;
 break;
 
 case 3 : 
-LCD_print("16*18");
+LCD_print("16*18=");
 LCD_print("A: 128");
 LCD_print("B: 248");
 LCD_print("C: 48");
@@ -168,245 +167,245 @@ correct_array[count] = 4;
 break;
 
 case 4 : 
-LCD_print("What animals are pearls found in?");
-LCD_print("A:Seals");
-LCD_print("B:Whales");
-LCD_print("C:Oysters");
-LCD_print("D:Corals");
+LCD_print("5+(8*3)=");
+LCD_print("A: 17");
+LCD_print("B: 39");
+LCD_print("C: 29");
+LCD_print("D: 25");
 correct_array[count] = 3;
 break;
 
 case 5 : 
-LCD_print("Which cartoon character lives in a pineapple under the sea?");
-LCD_print("A:Spongebob Squarepants");
-LCD_print("B:Rick");
-LCD_print("C:Phineas");
-LCD_print("D:Elsa");
+LCD_print("7*8*9=");
+LCD_print("A: 504");
+LCD_print("B: 65");
+LCD_print("C: 178");
+LCD_print("D: 897");
 correct_array[count] = 1;
 break;
 
 case 6 : 
-LCD_print("How many soccer players should each team have on the field at the start of each match?");
-LCD_print("A:9");
-LCD_print("B:10");
-LCD_print("C:21");
-LCD_print("D:11");
+LCD_print("13x-26=0");
+LCD_print("A: x=-1/2");
+LCD_print("B: x=1/2");
+LCD_print("C: x=-2");
+LCD_print("D: x=2");
 correct_array[count] = 4;
 break;
 
 case 7 : 
-LCD_print("Which boxer was known as The Greatest and The People Champion");
-LCD_print("A:Tyson Fury");
-LCD_print("B:Donal Trump");
-LCD_print("C:Muhammad Ali");
-LCD_print("D:Conor McGregor");
+LCD_print("45/5=");
+LCD_print("A: 5");
+LCD_print("B: 8");
+LCD_print("C: 9");
+LCD_print("D: 7");
 correct_array[count] = 3;
 break;
 
 case 8 : 
-LCD_print("What is the highest-grossing film of all time ?");
-LCD_print("A:Avenger: End game");
-LCD_print("B:Sherk");
-LCD_print("C:Sherk 2");
-LCD_print("D:Avatar");
+LCD_print("67+90+33=");
+LCD_print("A: 200");
+LCD_print("B: 97");
+LCD_print("C: 187");
+LCD_print("D: 190");
 correct_array[count] = 4;
 break;
 
 case 9 : 
-LCD_print("Which country is responsible for giving us pizza and pasta?");
-LCD_print("A: Italy");
-LCD_print("B: Russia");
-LCD_print("C: Antartica");
-LCD_print("D: North Korea ");
+LCD_print("1234*5678=");
+LCD_print("A: I7006652");
+LCD_print("B: 23084833");
+LCD_print("C: 14637823");
+LCD_print("D: 20393682");
 correct_array[count] = 1;
 break;
 
 case 10 : 
-LCD_print("What is your body largest organ?");
-LCD_print("A: Heart");
-LCD_print("B: Intestines");
-LCD_print("C: Skin");
-LCD_print("D: Organ");
+LCD_print("123456+789124=");
+LCD_print("A: 238479");
+LCD_print("B: 829038");
+LCD_print("C: 912580");
+LCD_print("D: 349870");
 correct_array[count] = 3; 
 break;
 
 case 11 : 
-LCD_print("What percentage of a adult body is made up of water?");
-LCD_print("A:69%% ");
-LCD_print("B:50-65%%");
-LCD_print("C:70-80%%");
-LCD_print("D:0%%");
+LCD_print("67*3=");
+LCD_print("A: 184 ");
+LCD_print("B: 201");
+LCD_print("C: 191");
+LCD_print("D: 352");
 correct_array[count] = 2;
 break;
 
 case 12 : 
-LCD_print("What is the smallest country in the world?");
-LCD_print("A: Vatican City");
-LCD_print("B: Cuba");
-LCD_print("C: Russia");
-LCD_print("D: Monaco");
+LCD_print("120/3=");
+LCD_print("A: 40");
+LCD_print("B: 60");
+LCD_print("C: 20");
+LCD_print("D: 45");
 correct_array[count] = 1;
 break;
 
 case 13 : 
-LCD_print("Which two countries share the longest international border?");
-LCD_print("A: Russia and China");
-LCD_print("B: Canada and the US");
-LCD_print("C: The US and Mexico");
-LCD_print("D: Britain and France");
+LCD_print("2+3+6+8=");
+LCD_print("A: 20");
+LCD_print("B: 19");
+LCD_print("C: 16");
+LCD_print("D: 24");
 correct_array[count] = 2;
 break;
 
 case 14 : 
-LCD_print("Which continent is the largest? ?");
-LCD_print("A: North America");
-LCD_print("B: South America");
-LCD_print("C: Asia");
-LCD_print("D: Antartica");
+LCD_print("20*5=");
+LCD_print("A: 80");
+LCD_print("B: 120");
+LCD_print("C: 100");
+LCD_print("D: 90");
 correct_array[count] = 3; 
 break; 
 
 case 15 : 
-LCD_print("How many championship title has the raptor won ?");
-LCD_print("A: 3");
-LCD_print("B: 1");
-LCD_print("C: 2");
-LCD_print("D: 0");
+LCD_print("7*9=");
+LCD_print("A: 49");
+LCD_print("B: 63");
+LCD_print("C: 92");
+LCD_print("D: 56");
 correct_array[count] = 2;
 break;
 
 case 16 : 
-LCD_print("What is the name of the longest river in the world?");
-LCD_print("A:The Nile river");
-LCD_print("B:The Amazon River");
-LCD_print("C:Mississippi river");
-LCD_print("D:Mekong river");
+LCD_print("13*7=");
+LCD_print("A: 91");
+LCD_print("B: 78");
+LCD_print("C: 99");
+LCD_print("D: 120");
 correct_array[count] = 1;
 break;
 
 case 17 : 
-LCD_print("Which religion dominated the Middle Ages?");
-LCD_print("A:Catholism");
-LCD_print("B:Hinduism");
-LCD_print("C:Islam");
-LCD_print("D:Buddhism");
+LCD_print("6y-3=0");
+LCD_print("A: y=1/2");
+LCD_print("B: y=2");
+LCD_print("C: y=-1/2");
+LCD_print("D:y=-2");
 correct_array[count] = 1;
 break;
 
 case 18 : 
-LCD_print("In which country was Adolph Hitler born in?");
-LCD_print("A:Germany");
-LCD_print("B:Austria");
-LCD_print("C:Netherland");
-LCD_print("D:Poland");
+LCD_print("6*5=");
+LCD_print("A: 35");
+LCD_print("B: 30");
+LCD_print("C: 25");
+LCD_print("D: 36");
 correct_array[count] = 2;
 break;
 
 case 19 : 
-LCD_print("What is the name of the fourth book in the Harry Potter series?");
-LCD_print("A: Harry Potter and the Goblet of Fire");
-LCD_print("B: Harry Potter and the Sorcerer’s Stone");
-LCD_print("C: Harry Potter and the Deathly Hallows");
-LCD_print("D: Harry Potter and the Order of the Phoenix");
+LCD_print("180/6=");
+LCD_print("A: 30");
+LCD_print("B: 60");
+LCD_print("C: 3");
+LCD_print("D: 36");
 correct_array[count] = 1;
 break;
 
 case 20 : 
-LCD_print("Who is the writer of Merchant of Venice?");
-LCD_print("A: William Shakespeare");
-LCD_print("B: J.K Rowling");
-LCD_print("C: J.R.R Tolkien");
-LCD_print("D: Charles Darwin");
+LCD_print("234+789=");
+LCD_print("A: 1023");
+LCD_print("B: 1765");
+LCD_print("C: 1234");
+LCD_print("D: 9887");
 correct_array[count] = 1;
 break;
 
 case 21 : 
-LCD_print("What animal is on the lamborghini logo?");
-LCD_print("A: Bull");
-LCD_print("B: Horse");
-LCD_print("C: Eagle");
-LCD_print("D: Fish");
+LCD_print("56/7=");
+LCD_print("A: 8");
+LCD_print("B: 7");
+LCD_print("C: 12");
+LCD_print("D: 4");
 correct_array[count] = 1;
 break;
 
 case 22 : 
-LCD_print("Donald Trump and which North Korean leader are known to trade threats over the internet?");
-LCD_print("A: Kim Jong-Il");
-LCD_print("B: Kim Jong Un");
-LCD_print("C: Mao Zedong");
-LCD_print("D: Xi Jinping");
+LCD_print("145/5=");
+LCD_print("A: 25");
+LCD_print("B: 29");
+LCD_print("C: 30");
+LCD_print("D: 17");
 correct_array[count] = 2;
 break;
 
 case 23 : 
-LCD_print("Question:What is the fastest land animal in the world?");
-LCD_print("A: Wolf");
-LCD_print("B: Hyena");
-LCD_print("C: Lion");
-LCD_print("D: Cheetah");
+LCD_print("25*4=");
+LCD_print("A: 125");
+LCD_print("B: 75");
+LCD_print("C: 168");
+LCD_print("D: 100");
 correct_array[count] = 4;
 break;
 
 case 24 : 
-LCD_print("Who is the richest person in the world right now?");
-LCD_print("A: Jeff bezos");
-LCD_print("B: Elon Musk");
-LCD_print("C: Bill Gates");
-LCD_print("D: You :>");
+LCD_print("5x-25=0");
+LCD_print("A: x=-5");
+LCD_print("B: x=5");
+LCD_print("C: x=3");
+LCD_print("D: x=10");
 correct_array[count] = 2;
 break;
 
 case 26 : 
-LCD_print("Which watch company has a pointed crown as its logo?");
-LCD_print("A: Cartier");
-LCD_print("B: Gucci");
-LCD_print("C: Rolex");
-LCD_print("D: Omega");
+LCD_print("50*3=");
+LCD_print("A: 105");
+LCD_print("B: 200");
+LCD_print("C: 150");
+LCD_print("D: 70");
 correct_array[count] = 3;
 break;
 
 case 27 : 
-LCD_print("What is the slogan of Apple Inc.?");
-LCD_print("A: Think different");
-LCD_print("B: Think same");
-LCD_print("C: Just do it");
-LCD_print("D: Impossible is nothing");
+LCD_print("80x-20=0");
+LCD_print("A: x=1/4");
+LCD_print("B: x=-1/4");
+LCD_print("C: x=4");
+LCD_print("D: x=8");
 correct_array[count] = 1;
 break;
 
 case 28 : 
-LCD_print("Oktoberfest in Germany is celebrated with what drink?");
-LCD_print("A:Vodka");
-LCD_print("B:Cider");
-LCD_print("C:Beer");
-LCD_print("D:Rum");
+LCD_print("905/5=");
+LCD_print("A: 50");
+LCD_print("B: 90");
+LCD_print("C: 181");
+LCD_print("D: 200");
 correct_array[count] = 3;
 break;
 
 case 29 : 
-LCD_print("When is Canada Day?");
-LCD_print("A:July 28");
-LCD_print("B:December 26");
-LCD_print("C:July 1");
-LCD_print("D:June 32");
+LCD_print("786-564=");
+LCD_print("A: 197");
+LCD_print("B: 245");
+LCD_print("C: 222");
+LCD_print("D: 234");
 correct_array[count] = 3;
 break;
 
 case 30 : 
-LCD_print("How many buildings does the University of Waterloo have");
-LCD_print("A:75");
-LCD_print("B:50");
-LCD_print("C:100+");
-LCD_print("D:28");
+LCD_print("167*4/2=");
+LCD_print("A: 157");
+LCD_print("B: 400");
+LCD_print("C: 334");
+LCD_print("D: 350");
 correct_array[count] = 3;
 break;
 
 default: 
-LCD_print("Who was the first person to be pictured on a coin?");
-LCD_print("A: Benjamin Franklin");
-LCD_print("B: Genghis Khan");
-LCD_print("C: Alexander the Great");
-LCD_print("D: Cleopatra");
+LCD_print("5x-100=0");
+LCD_print("A: x=-20");
+LCD_print("B: x=1/5");
+LCD_print("C: x=20");
+LCD_print("D: x=100");
 correct_array[count] = 3;
 break;
     } 
@@ -455,7 +454,7 @@ InitializePin(GPIOA, GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7, GPIO_MODE_OUTPUT_PP, 
 }
 
 int check_answer(){
-    while(true){
+    while(answered == false){
         printf("Sensor 1:%d", get_distance1());
         
         sprintf(buff, "Sensor 2:%d", get_distance2());
@@ -463,19 +462,24 @@ int check_answer(){
 
         if(get_distance1() > 48){
             player_array[count] = 1 + '0';
+            answered = true;
         }
-
+        HAL_Delay(200);
         if(get_distance2() > 48){
             player_array[count] = 2 + '0';
+            answered = true;
         }
-
+        HAL_Delay(200);
         if(get_distance3() > 48){
             player_array[count] = 3 + '0';
+            answered = true;
         }
-
+        HAL_Delay(200);
         if(get_distance4() > 48){
             player_array[count] = 4 + '0';
+            answered = true;
         }
+        HAL_Delay(200);
     }
 
     for(int i = 0; i < 4; ++i){
@@ -600,10 +604,10 @@ void LCD_print(char buff[]){
     //* wiper to LCD VO pin (pin 3)
 
     // initialize the library by associating any needed LCD interface pin
-	LiquidCrystal(GPIOA, GPIO_PIN_8, GPIO_PIN_9, GPIO_PIN_10, GPIO_PIN_11, GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14);
+	LiquidCrystal(GPIOA, GPIO_PIN_8, GPIO_PIN_9, GPIO_PIN_10, GPIO_PIN_11, GPIO_PIN_12, GPIO_PIN_1, GPIO_PIN_4);
 
 	print(buff);
-	HAL_Delay(10000);
+	HAL_Delay(5000);
 
 }
 
