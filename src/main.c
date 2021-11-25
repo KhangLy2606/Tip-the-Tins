@@ -28,6 +28,7 @@ int get_distance1();
 int get_distance2();
 int get_distance3();
 int get_distance4();
+int check_answer();
 void LCD_print(char buff[]);
 
 bool answer;
@@ -39,7 +40,9 @@ int distance = 6;
 
 int correct_array[4];
 int player_array[4];
+char player_answer[4];
 int turn = 1;
+int lives = 3;
 
 char question;
 
@@ -62,20 +65,68 @@ int main(void)
 
     SerialSetup(9600);
 
-    // initialize pins for sensors - NEED TO CHANGE
+    // initialize pins for sensors
+    //sen 1
     InitializePin(GPIOC, GPIO_PIN_0, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);
     InitializePin(GPIOC, GPIO_PIN_1, GPIO_MODE_INPUT, GPIO_NOPULL, 0);
+    //sen2
+    InitializePin(GPIOB, GPIO_PIN_8, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);
+    InitializePin(GPIOB, GPIO_PIN_9, GPIO_MODE_INPUT, GPIO_NOPULL, 0);
+    //sen3
+    InitializePin(GPIOB, GPIO_PIN_4, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);
+    InitializePin(GPIOB, GPIO_PIN_5, GPIO_MODE_INPUT, GPIO_NOPULL, 0);
+    //sen4
+    InitializePin(GPIOB, GPIO_PIN_6, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);
+    InitializePin(GPIOC, GPIO_PIN_7, GPIO_MODE_INPUT, GPIO_NOPULL, 0);
 
+    
+    //test for sensors
+    // while(1){
+    //     sprintf(buff, "distance 1 (cm) =  %d\n", get_distance1());
+    //     SerialPuts(buff);
+
+    //     HAL_Delay(3000);
+
+    //      sprintf(buff, "distance 2 (cm) =  %d\n", get_distance2());
+    //     SerialPuts(buff);
+
+    //     HAL_Delay(3000);
+
+    //      sprintf(buff, "distance 3 (cm) =  %d\n", get_distance3());
+    //     SerialPuts(buff);
+
+    //     HAL_Delay(3000);
+
+    //      sprintf(buff, "distance 4 (cm) =  %d\n", get_distance4());
+    //     SerialPuts(buff);
+
+    //     HAL_Delay(3000);
+    // }
+
+   
     // Game code
+    // Asks 4 questions and inputs answers based on sensors
+    
 
-    while(turn <= 4){
-        // Gets random question 
-        RAND_QUEST();
-        get_distance();
-    }
-
+    // Checks if player got all 4 questions correctly and turns LED on accordingly and prints lives 
     CHECK_PIN();
     LED();
+
+    while((answer = false) && (lives > 0)){
+        while(turn <= 4){
+        // Gets random question 
+        RAND_QUEST();
+        count++;
+        check_answer();
+        ++turn;
+    }
+        // Checks if player got all 4 questions correctly and turns LED on accordingly and prints lives 
+        CHECK_PIN();
+        LED();
+        turn = 1;
+    }
+
+    
 
 return 0;
 }
@@ -90,29 +141,29 @@ rand_num = rand()%30; // selects a random number using the function from the HAL
 switch (rand_num) // matches rand_num with question 
 {
 case 1 : 
-LCD_print("How many championship title has the raptor won ?");
-LCD_print("A:3");
-LCD_print("B:1");
-LCD_print("C:2");
-LCD_print("D:0");
+LCD_print("3x+6=0");
+LCD_print("A: x=5");
+LCD_print("B: x=-2");
+LCD_print("C: x=2");
+LCD_print("D: x=3");
 correct_array[count] = 2;
 break;
 
 case 2 : 
-LCD_print(" The American Falls and Horseshoe Falls are better known as?");
-LCD_print("A: Rainbow falls");
-LCD_print("B: Niagara falls");
-LCD_print("C: Union falls");
-LCD_print("D: Yosemite falls");
+LCD_print("5*7");
+LCD_print("A: 75");
+LCD_print("B: 35");
+LCD_print("C: 30");
+LCD_print("D: 5");
 correct_array[count] = 2;
 break;
 
 case 3 : 
-LCD_print("Whose nickname was the Wizard of Menlo Park?");
-LCD_print("A:Voldemort");
-LCD_print("B:Albus Dumbledore");
-LCD_print("C:Gandalf");
-LCD_print("D:Thomas Edison");
+LCD_print("16*18");
+LCD_print("A: 128");
+LCD_print("B: 248");
+LCD_print("C: 48");
+LCD_print("D: 288");
 correct_array[count] = 4;
 break;
 
@@ -386,9 +437,50 @@ InitializePin(GPIOA, GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7, GPIO_MODE_OUTPUT_PP, 
     int colour = 0;
     if(answer == true) {
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, colour = 2);  // green (hex 2 == 0010 binary)
+            LCD_print("You've tipped...");
+            LCD_print("the right tins!");
+            LCD_print("Pin to escape:");
+            //for(int i = 0; i < 4; ++i){
+                //LCD_print(player_answer[i]);
+            //}
         }else {
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, colour = 4);  // red   (hex 4 == 0100 binary)
+            LCD_print("You've tipped...");
+            LCD_print("the wrong tins :(");
+            lives--;
+            LCD_print("Lives left: ");
+            //LCD_print(lives + '0');
+            LCD_print("Try again.");
         }
+}
+
+int check_answer(){
+    while(true){
+        printf("Sensor 1:%d", get_distance1());
+        
+        sprintf(buff, "Sensor 2:%d", get_distance2());
+        SerialPuts(buff);
+
+        if(get_distance1() > 48){
+            player_array[count] = 1 + '0';
+        }
+
+        if(get_distance2() > 48){
+            player_array[count] = 2 + '0';
+        }
+
+        if(get_distance3() > 48){
+            player_array[count] = 3 + '0';
+        }
+
+        if(get_distance4() > 48){
+            player_array[count] = 4 + '0';
+        }
+    }
+
+    for(int i = 0; i < 4; ++i){
+        player_answer[i] = player_array[i];
+    }
 }
 
 int get_distance1(void){
